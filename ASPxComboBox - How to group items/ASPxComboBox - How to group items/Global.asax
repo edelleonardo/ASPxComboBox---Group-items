@@ -1,1 +1,1 @@
-<%@ Application Codebehind="Global.asax.cs" Inherits="ASPxComboBox_-_How_to_group_items.Global_asax" Language="C#" %>
+<%@ Application Codebehind="Global.asax.cs" Inherits="ASPxComboBox___How_to_group_items.Global_asax" Language="C#" %>

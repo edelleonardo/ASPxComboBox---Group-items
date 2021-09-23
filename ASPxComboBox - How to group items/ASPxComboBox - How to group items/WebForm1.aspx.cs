@@ -11,10 +11,12 @@ namespace ASPxComboBox___How_to_group_items
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ASPxComboBox1.DataSource = Enumerable.Range(1, 10).Select(a => new {
+            ASPxComboBox1.DataSource = Enumerable.Range(1, 10).Select(a => new
+            {
                 Id = a,
-                Text = "Text " + a
-            });
+                Text = "Text " + a,
+                Group = a
+            }) ;
 
             ASPxComboBox1.DataBind();
         }

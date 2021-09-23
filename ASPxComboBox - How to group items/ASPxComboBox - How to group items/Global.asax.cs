@@ -1,7 +1,7 @@
 using System;
 using DevExpress.Security.Resources;
 
-namespace ASPxComboBox_-_How_to_group_items {
+namespace ASPxComboBox___How_to_group_items {
     public class Global_asax : System.Web.HttpApplication {
         void Application_Start(object sender, EventArgs e) {
             DevExpress.Web.ASPxWebControl.CallbackError += new EventHandler(Application_Error);
