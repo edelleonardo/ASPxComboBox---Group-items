@@ -1,4 +1,5 @@
-﻿using DevExpress.Web;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,9 @@ namespace ASPxComboBox___How_to_group_items
         protected void Page_Load(object sender, EventArgs e)
         {
 
-   
             ASPxComboBox1.DataBind();
 
+     
         }
 
         protected void ASPxComboBox1_DataBound(object sender, EventArgs e)
@@ -26,6 +27,7 @@ namespace ASPxComboBox___How_to_group_items
             {
                 Id = a,
                 Text = "Text " + a,
+                Data = "Data" + a,
                 GroupName = (a % 2 == 0) ? "Even" : "Odd",
                 GroupId = (a % 2 == 0) ? 1 : 2
             }).GroupBy(x => x.GroupId);
@@ -52,13 +54,12 @@ namespace ASPxComboBox___How_to_group_items
 
                 foreach (SampleData groupedItem in group)
                 {
-                    ListEditItem comboItem = new ListEditItem() { Text = groupedItem.Text, Value = groupedItem.Id,  };
+                     ListEditItem comboItem = new ListEditItem() { Text = groupedItem.Text, Value = groupedItem.Id,   };
                     combo.Items.Add(comboItem);
                 }
             }
 
 
-            combo.SelectedIndex = -1;
 
         }
 
@@ -68,6 +69,20 @@ namespace ASPxComboBox___How_to_group_items
             {
                 e.Row.CssClass = "header";
             }
+        }
+
+        protected void ASPxComboBox1_CustomFiltering(object sender, ListEditCustomFilteringEventArgs e)
+        {
+            string[] words = e.Filter.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] columns = new string[] { "CompanyName", "Country" };
+            e.FilterExpression = GroupOperator.And(words.Select(w =>
+                GroupOperator.Or(
+                    columns.Select(c =>
+                        new FunctionOperator(FunctionOperatorType.Contains, new OperandProperty(c), w)
+                    )
+                )
+            )).ToString();
+            e.CustomHighlighting = columns.ToDictionary(c => c, c => words);
         }
     }
 }

@@ -17,15 +17,29 @@
         }
     </style>
     <script>
- 
+        function OnItemFiltering(s, e) {
+            if (e.item.value == null) {
+                e.isFit = false;
+            }
+        }
+
+        function OnInit(s, e) {
+            s.SetSelectedIndex(-1);
+        }
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <dx:ASPxComboBox ID="ASPxComboBox1" runat="server" ValueType="System.Int32" TextField="Text" ValueField="Id" OnDataBound="ASPxComboBox1_DataBound" OnItemRowPrepared="ASPxComboBox1_ItemRowPrepared">
-  
-            
+        <dx:ASPxComboBox ID="ASPxComboBox1" ClientInstanceName="combo" runat="server" ValueType="System.Int32" TextFormatString="{0}" TextField="Text" ValueField="Id"
+            OnDataBound="ASPxComboBox1_DataBound" OnItemRowPrepared="ASPxComboBox1_ItemRowPrepared" OnCustomFiltering="ASPxComboBox1_CustomFiltering">
+  <ClientSideEvents ItemFiltering="OnItemFiltering" Init="OnInit"   />
+<%--            <Columns>
+                <dx:ListBoxColumn FieldName="Text"></dx:ListBoxColumn>
+                <dx:ListBoxColumn FieldName="Data"></dx:ListBoxColumn>
+            </Columns>--%>
         </dx:ASPxComboBox>
+
+        
     </form>
 </body>
 </html>
